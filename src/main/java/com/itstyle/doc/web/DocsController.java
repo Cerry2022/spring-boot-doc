@@ -1,4 +1,6 @@
 package com.itstyle.doc.web;
+import com.itstyle.doc.common.constans.Constans;
+import com.itstyle.doc.common.constans.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,8 @@ public class DocsController {
 	
 	@RequestMapping(value="{identify}",method=RequestMethod.GET)
     public String  login(ModelMap map) {
-		 logger.info("查看项目");
-		 return "document/default_read";
+		logger.info("查看项目");
+
+		return "document/";
     }
-	
 }

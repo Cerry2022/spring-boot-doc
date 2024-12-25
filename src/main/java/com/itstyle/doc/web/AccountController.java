@@ -32,6 +32,8 @@ public class AccountController {
 		 map.addAttribute("ENABLED_CAPTCHA", Constans.mapOptions.get(Option.ENABLED_CAPTCHA.getCode()));
 		 return "account/login";
     }
+
+
 	@RequestMapping(value="login",method=RequestMethod.POST)
     public @ResponseBody Result  login(Member member, String code,HttpServletRequest request) {
 		 Result result = new Result();

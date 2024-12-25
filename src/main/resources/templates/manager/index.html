@@ -31,26 +31,26 @@
                     </div>
                 </div>
                 <div class="box-body manager">
-                    <a href="{{urlfor "ManagerController.Books"}}" class="dashboard-item">
+                    <div  class="dashboard-item">
                         <span class="fa fa-book" aria-hidden="true"></span>
                         <span class="fa-class">项目数量</span>
                         <span class="fa-class" th:text="${booksCount}"></span>
-                    </a>
+                    </div>
                     <div class="dashboard-item">
                         <span class="fa fa-file-text-o" aria-hidden="true"></span>
                         <span class="fa-class">文章数量</span>
                         <span class="fa-class" th:text="${documentCount}"></span>
                     </div>
-                    <a href="{{urlfor "ManagerController.Users"}}" class="dashboard-item">
+                    <div class="dashboard-item">
                             <span class="fa fa-users" aria-hidden="true"></span>
                             <span class="fa-class">会员数量</span>
                             <span class="fa-class" th:text="${memberCount}"></span>
                     </a>
-                    <a href="{{urlfor "ManagerController.AttachList" }}" class="dashboard-item">
+                    <div class="dashboard-item">
                         <span class="fa fa-cloud-download" aria-hidden="true"></span>
                         <span class="fa-class">附件数量</span>
                         <span class="fa-class" th:text="${attachmentCount}"></span>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
