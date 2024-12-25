@@ -1,65 +1,81 @@
 package com.itstyle.doc.model;
-import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@Data                
-@NoArgsConstructor     
+
+import java.sql.Timestamp;
+
+// 使用lombok`
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "md_books" )
+@Table(name = "md_books")
 public class Books {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "book_id", nullable = false)
 	private Integer bookId;
+
 	@Column(nullable = false)
-    private String bookName;
+	private String bookName;
+
 	@Column(nullable = false)
-    private String identify;
+	private String identify;
+
 	@Column(nullable = false)
-    private Integer orderIndex;
+	private Integer orderIndex;
+
 	@Column(nullable = true)
-    private String description;
-	
+	private String description;
+
 	@Column(nullable = false)
-    private String label;
+	private String label;
+
 	@Column(nullable = false)
-    private Integer privatelyOwned;
+	private Integer privatelyOwned;
+
 	@Column(nullable = true)
-    private String private_token;
+	private String private_token;
+
 	@Column(nullable = false)
-    private Integer status;
-	
+	private Integer status;
+
 	@Column(nullable = false)
-    private String editor;
+	private String editor;
+
 	@Column(nullable = false)
-    private Integer docCount;
+	private Integer docCount;
+
 	@Column(nullable = false)
-    private String commentStatus;
+	private String commentStatus;
+
 	@Column(nullable = true)
-    private Integer commentCount;
-	
+	private Integer commentCount;
+
 	@Column(nullable = false)
-    private String cover;
+	private String cover;
+
 	@Column(nullable = false)
-    private String theme;
+	private String theme;
+
 	@Column(nullable = false)
-    private Timestamp createTime;
+	private Timestamp createTime;
+
 	@Column(nullable = true)
-    private Integer memberId;
+	private Integer memberId;
+
 	@Column(nullable = false)
-    private Timestamp modifyTime;
+	private Timestamp modifyTime;
+
 	@Column(nullable = true)
-    private Integer version;
-	
-	
+	private Integer version;
 }

@@ -1,54 +1,65 @@
 package com.itstyle.doc.model;
-import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@Data                
-@NoArgsConstructor     
+
+import java.sql.Timestamp;
+
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "md_documents" )
+@Table(name = "md_documents")
 public class Documents {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "document_id", nullable = false)
 	private Integer documentId;
+
 	@Column(nullable = false)
-    private String documentName;
+	private String documentName;
+
 	@Column(nullable = false)
-    private String identify;
+	private String identify;
+
 	@Column(nullable = false)
-    private Integer bookId;
+	private Integer bookId;
+
 	@Column(nullable = true)
-    private Integer parentId;
-	
+	private Integer parentId;
+
 	@Column(nullable = false)
-    private Integer orderSort;
+	private Integer orderSort;
+
 	@Column(nullable = false)
-    private String markdown;
+	private String markdown;
+
 	@Column(nullable = true)
-    private String release;
+	private String release;
+
 	@Column(nullable = false)
-    private String content;
-	
+	private String content;
+
 	@Column(nullable = false)
-    private Timestamp createTime;
+	private Timestamp createTime;
+
 	@Column(nullable = false)
-    private Integer memberId;
+	private Integer memberId;
+
 	@Column(nullable = false)
-    private Timestamp modifyTime;
+	private Timestamp modifyTime;
+
 	@Column(nullable = true)
-    private Integer modify_at;
+	private Integer modify_at;
+
 	@Column(nullable = true)
-    private Integer version;
-	
-	
+	private Integer version;
 }

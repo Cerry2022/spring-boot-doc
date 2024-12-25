@@ -19,7 +19,7 @@ public class DocsController {
 	@RequestMapping(value="{identify}",method=RequestMethod.GET)
     public String  login(ModelMap map) {
 		 logger.info("查看项目");
-		 return "account/login";
+		 return "document/default_read";
     }
 	
 }

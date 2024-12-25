@@ -1,5 +1,5 @@
 package com.itstyle.doc.web;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +40,8 @@ public class AccountController {
 		 String vrifyCode =  (String) request.getSession().getAttribute("vrifyCode");
 		 if(vrifyCode.equalsIgnoreCase(code)){
 			 if(user!=null){
+				 logger.info("正确密码: "+user.getPassword());
+				 logger.info("输入密码: " + MD5Util.MD5(member.getPassword()));
 				 if(user.getPassword().equals(MD5Util.MD5(member.getPassword()))){
 					 request.getSession().setAttribute(Constans.CURRENT_USER, user);
 					 result.setCode(Constans.SUCCESS);

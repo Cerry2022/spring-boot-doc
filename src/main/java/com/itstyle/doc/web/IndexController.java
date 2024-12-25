@@ -1,12 +1,13 @@
 package com.itstyle.doc.web;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,50 +24,51 @@ import com.itstyle.doc.model.Books;
 import com.itstyle.doc.repository.BooksRepository;
 import com.itstyle.doc.repository.MemberRepository;
 import com.itstyle.doc.repository.OptionsRepository;
+
 @Controller
 @RequestMapping(value = "")
 public class IndexController {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
-	
+
 	@Autowired
 	private OptionsRepository optionsRepository;
 	@Autowired
 	private BooksRepository booksRepository;
 	@Autowired
-	MemberRepository memberRepository;
-	@Autowired  
+	private MemberRepository memberRepository;
+	@Autowired
 	private DefaultKaptcha defaultKaptcha;
-	
+
 	@RequestMapping(value="index",method=RequestMethod.GET)
-    public String  index(ModelMap map) {
-		 logger.info("首页");
-		 map.addAttribute("SITE_NAME", Constans.mapOptions.get(Option.SITE_NAME.getCode()));
-		 List<Books> bookList =  booksRepository.findAll();
-		 map.addAttribute("bookList",bookList);
-		 return "home/index";
-    }
-	@RequestMapping("/defaultKaptcha")  
-    public void defaultKaptcha(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse) throws Exception{  
-	     byte[] captchaChallengeAsJpeg = null;    
-	     ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();    
-	     try {    
-	     String createText = defaultKaptcha.createText();  
-	     httpServletRequest.getSession().setAttribute("vrifyCode", createText);  
-	     BufferedImage challenge = defaultKaptcha.createImage(createText);  
-	     ImageIO.write(challenge, "jpg", jpegOutputStream);  
-	     } catch (IllegalArgumentException e) {    
-	         httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND);    
-	         return;    
-	     }   
-	     captchaChallengeAsJpeg = jpegOutputStream.toByteArray();    
-	     httpServletResponse.setHeader("Cache-Control", "no-store");    
-	     httpServletResponse.setHeader("Pragma", "no-cache");    
-	     httpServletResponse.setDateHeader("Expires", 0);    
-	     httpServletResponse.setContentType("image/jpeg");    
-	     ServletOutputStream responseOutputStream =    
-	             httpServletResponse.getOutputStream();    
-	     responseOutputStream.write(captchaChallengeAsJpeg);    
-	     responseOutputStream.flush();    
-	     responseOutputStream.close();    
-    }  
+	public String  index(ModelMap map) {
+		logger.info("首页");
+		map.addAttribute("SITE_NAME", Constans.mapOptions.get(Option.SITE_NAME.getCode()));
+		List<Books> bookList =  booksRepository.findAll();
+		map.addAttribute("bookList",bookList);
+		return "home/index";
+	}
+
+	@RequestMapping("/defaultKaptcha")
+	public void defaultKaptcha(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+		byte[] captchaChallengeAsJpeg = null;
+		ByteArrayOutputStream jpegOutputStream = new ByteArrayOutputStream();
+		try {
+			String createText = defaultKaptcha.createText();
+			httpServletRequest.getSession().setAttribute("vrifyCode", createText);
+			BufferedImage challenge = defaultKaptcha.createImage(createText);
+			ImageIO.write(challenge, "jpg", jpegOutputStream);
+		} catch (IllegalArgumentException e) {
+			httpServletResponse.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
+		captchaChallengeAsJpeg = jpegOutputStream.toByteArray();
+		httpServletResponse.setHeader("Cache-Control", "no-store");
+		httpServletResponse.setHeader("Pragma", "no-cache");
+		httpServletResponse.setDateHeader("Expires", 0);
+		httpServletResponse.setContentType("image/jpeg");
+		ServletOutputStream responseOutputStream = httpServletResponse.getOutputStream();
+		responseOutputStream.write(captchaChallengeAsJpeg);
+		responseOutputStream.flush();
+		responseOutputStream.close();
+	}
 }

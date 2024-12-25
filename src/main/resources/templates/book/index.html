@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="manual-reader">
-   <div th:replace="/widgets/header :: header"></div>
+   <div th:replace="~{/widgets/header :: header}"></div>
     <div class="container manual-body">
         <div class="row">
             <div class="page-left">
@@ -90,7 +90,7 @@
             </div>
         </div>
     </div>
-    <div th:replace="/widgets/footer :: footer"></div>
+    <div th:replace="~{/widgets/footer :: footer}"></div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="addBookDialogModal" tabindex="-1" role="dialog" aria-labelledby="addBookDialogModalLabel">
