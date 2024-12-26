@@ -62,4 +62,5 @@ public class Documents {
 
 	@Column(nullable = true)
 	private Integer version;
+
 }

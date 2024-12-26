@@ -1,24 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" xmlns="">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>{{.Model.BookName}} - Powered by MinDoc</title>
+    <title th:text="${model.bookName} + ' - Powered by MinDoc'">文档标题</title>
 
     <!-- Bootstrap -->
-    <link th:href="@{bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/font-awesome/css/font-awesome.min.css}" rel="stylesheet">
     <link th:href="@{/jstree/3.3.4/themes/default/style.min.css}" rel="stylesheet">
-
     <link th:href="@{/nprogress/nprogress.css}" rel="stylesheet">
     <link th:href="@{/css/kancloud.css}" rel="stylesheet">
     <link th:href="@{/css/jstree.css}" rel="stylesheet">
     <!-- markdown -->
     <link th:href="@{/editor.md/css/editormd.preview.css}" rel="stylesheet">
-    <link hth:href="@{/prettify/themes/atelier-estuary-dark.min.css}" rel="stylesheet">
+    <link th:href="@{/prettify/themes/atelier-estuary-dark.min.css}" rel="stylesheet">
     <link th:href="@{/css/markdown.preview.css}" rel="stylesheet">
     <!--HTML 这里要判断= -->
     <link th:href="@{/highlight/styles/zenburn.css}" rel="stylesheet">
@@ -29,7 +26,10 @@
         <div class="container-fluid">
             <div class="navbar-header pull-left manual-title">
                 <span class="slidebar" id="slidebar"><i class="fa fa-align-justify"></i></span>
-                <a href="{{urlfor "DocumentController.Index" ":key" .Model.Identify}}" title="{{.Model.BookName}}" class="book-title">{{.Model.BookName}}</a>
+                <a th:href="@{/document/index(key=${model.identify})}"
+                   th:title="${model.bookName}"
+                   class="book-title"
+                   th:text="${model.bookName}">文档标题</a>
                 <span style="font-size: 12px;font-weight: 100;"></span>
             </div>
             <div class="navbar-header pull-right manual-menu">
@@ -40,13 +40,20 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dLabel">
                         <!-- 相关权限判断 -->
-                        <li><a href="{{urlfor "DocumentController.Edit" ":key" = .Model.Identify, ":id" = ""}}">返回编辑</a></li>
-                        <li><a href="{{urlfor "BookController.Index"}}">我的项目</a> </li>
+                        <li><a th:href="@{/document/edit(key=${model.identify}, id='')}"
+                               th:text="'返回编辑'">返回编辑</a></li>
+                        <li><a th:href="@{/book/index}"
+                               th:text="'我的项目'">我的项目</a></li>
                         <li role="presentation" class="divider"></li>
-                        <li><a href="javascript:" data-toggle="modal" data-target="#shareProject">项目分享</a> </li>
+                        <li><a data-toggle="modal" data-target="#shareProject"
+                               th:text="'项目分享'">项目分享</a></li>
                         <li role="presentation" class="divider"></li>
-                        <li><a href="{{urlfor "DocumentController.Export" ":key" .Model.Identify "output" "pdf"}}" target="_blank">项目导出PDF</a> </li>
-                        <li><a href="{{urlfor "HomeController.Index"}}" title="返回首页">返回首页</a> </li>
+                        <li><a th:href="@{/document/export(key=${model.identify}, output='pdf')}"
+                               target="_blank"
+                               th:text="'项目导出PDF'">项目导出PDF</a></li>
+                        <li><a th:href="@{/home/index}"
+                               th:title="'返回首页'"
+                               th:text="'返回首页'">返回首页</a></li>
                     </ul>
                 </div>
             </div>
@@ -68,19 +75,19 @@
                 <div class="tab-wrap">
                     <div class="tab-item manual-catalog">
                         <div class="catalog-list read-book-preview" id="sidebar">
-                        {{.Result}}
+                            <!-- 结果内容 -->
                         </div>
-
                     </div>
                     <div class="tab-item manual-search">
                         <div class="search-container">
                             <div class="search-form">
-                                <form id="searchForm" action="{{urlfor "DocumentController.Search" ":key" .Model.Identify}}" method="post">
+                                <form id="searchForm" th:action="@{/search/{key}(key=${model.identify})}" method="post">
                                     <div class="form-group">
                                         <input type="search" placeholder="请输入搜索关键字" class="form-control" name="keyword">
                                         <button type="submit" class="btn btn-default btn-search" id="btnSearch">
                                             <i class="fa fa-search"></i>
                                         </button>
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                     </div>
                                 </form>
                             </div>
@@ -107,26 +114,24 @@
                 <div class="article-head">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-2">
-
-                            </div>
+                            <div class="col-md-2"></div>
                             <div class="col-md-8 text-center">
-                                <h1 id="article-title">{{.Title}}</h1>
+                                <h1 id="article-title" th:text="${title}">文章标题</h1>
                             </div>
-                            <div class="col-md-2">
-                            </div>
+                            <div class="col-md-2"></div>
                         </div>
                     </div>
                 </div>
                 <div class="article-content">
-                    <div class="article-body  {{if eq .Model.Editor "markdown"}}markdown-body editormd-preview-container{{else}}editor-content{{end}}"  id="page-content">
-                        {{.Content}}
+                    <div class="article-body"
+                         th:classappend="${model.editor == 'markdown' ? 'markdown-body editormd-preview-container' : 'editor-content'}"
+                         id="page-content">
+                        <!-- 文章内容 -->
                     </div>
                     <div class="jump-top">
                         <a href="javascript:;" class="view-backtop"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
                     </div>
                 </div>
-
             </div>
         </div>
         <div class="manual-progress"><b class="progress-bar"></b></div>
@@ -145,13 +150,18 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-12 text-center" style="padding-bottom: 15px;">
-                        <img src="{{urlfor "DocumentController.QrCode" ":key" .Model.Identify}}" alt="扫一扫手机阅读" />
+                        <img th:src="@{/document/qrcode(key=${model.identify})}" alt="扫一扫手机阅读" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="password" class="col-sm-2 control-label">项目地址</label>
                     <div class="col-sm-10">
-                        <input type="text" value="{{.BaseUrl}}{{urlfor "DocumentController.Index" ":key" .Model.Identify}}" class="form-control" onmouseover="this.select()" id="projectUrl" title="项目地址">
+                        <input type="text"
+                               th:value="${baseUrl + '/document/index(key=' + model.identify + ')'}"
+                               class="form-control"
+                               onmouseover="this.select()"
+                               id="projectUrl"
+                               title="项目地址">
                     </div>
                     <div class="clearfix"></div>
                 </div>
@@ -162,27 +172,27 @@
         </div>
     </div>
 </div>
-<script th:src="${/jquery/1.12.4/jquery.min.js}"></script>
-<script th:src="${/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="${/js/jquery.form.js}" type="text/javascript"></script>
-<script th:src="${/jstree/3.3.4/jstree.min.js}" type="text/javascript"></script>
-<script type="text/javascript" th:src="${/nprogress/nprogress.js}"></script>
-<script type="text/javascript" th:src="${/static/highlight/highlight.js}"></script>
-<script type="text/javascript" th:src="${/static/highlight/highlightjs-line-numbers.min.js}"></script>
-<script type="text/javascript" th:src="${/js/jquery.highlight.js}"></script>
-<script type="text/javascript" th:src="${/js/kancloud.js}"></script>
+<script th:src="@{/jquery/1.12.4/jquery.min.js}"></script>
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.form.js}" type="text/javascript"></script>
+<script th:src="@{/jstree/3.3.4/jstree.min.js}" type="text/javascript"></script>
+<script type="text/javascript" th:src="@{/nprogress/nprogress.js}"></script>
+<script type="text/javascript" th:src="@{/static/highlight/highlight.js}"></script>
+<script type="text/javascript" th:src="@{/static/highlight/highlightjs-line-numbers.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.highlight.js}"></script>
+<script type="text/javascript" th:src="@{/js/kancloud.js}"></script>
 <script type="text/javascript">
-$(function () {
-    $("#searchList").on("click","a",function () {
-        var id = $(this).attr("data-id");
-        var url = "{{urlfor "DocumentController.Read" ":key" .Model.Identify ":id" ""}}/" + id;
-        $(this).parent("li").siblings().find("a").removeClass("active");
-        $(this).addClass("active");
-        loadDocument(url,id,function (body) {
-            return $(body).highlight(window.keyword);
+    $(function () {
+        $("#searchList").on("click","a",function () {
+            var id = $(this).attr("data-id");
+            var url = "[[@{/document/read(key=${model.identify}, id=id)}]]" + "/" + id;
+            $(this).parent("li").siblings().find("a").removeClass("active");
+            $(this).addClass("active");
+            loadDocument(url, id, function (body) {
+                return $(body).highlight(window.keyword);
+            });
         });
     });
-});
 </script>
 </body>
 </html>

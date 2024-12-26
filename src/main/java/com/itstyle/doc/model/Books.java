@@ -12,10 +12,11 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-// 使用lombok`
+// 使用lombok
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Entity
 @Table(name = "md_books")
 public class Books {
@@ -78,4 +79,11 @@ public class Books {
 
 	@Column(nullable = true)
 	private Integer version;
+
+	@Column(nullable = false)
+	private String roleName;
+
+	@Column(nullable = false)
+	private String createName;
+
 }

@@ -2,7 +2,8 @@
 SQLyog 企业版 - MySQL GUI v8.14 
 MySQL - 5.1.37-community : Database - javadoc_db
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -55,6 +56,8 @@ CREATE TABLE `md_books` (
   `cover` varchar(1000) NOT NULL DEFAULT '',
   `theme` varchar(255) NOT NULL DEFAULT 'default',
   `create_time` datetime NOT NULL,
+  `roleName` varchar(500) NOT NULL DEFAULT '',
+  `createName` varchar(500) NOT NULL DEFAULT '',
   `member_id` int(11) NOT NULL DEFAULT '0',
   `modify_time` datetime DEFAULT NULL,
   `version` bigint(20) NOT NULL DEFAULT '0',
@@ -64,8 +67,27 @@ CREATE TABLE `md_books` (
 
 /*Data for the table `md_books` */
 
-insert  into `md_books`(`book_id`,`book_name`,`identify`,`order_index`,`description`,`label`,`privately_owned`,`private_token`,`status`,`editor`,`doc_count`,`comment_status`,`comment_count`,`cover`,`theme`,`create_time`,`member_id`,`modify_time`,`version`) values (2,'支付宝','alipay',0,'支付宝','',0,'',0,'markdown',1,'closed',0,'/uploads/201709/cover_14e1c2b307e5e567_small.jpg','default','2017-09-06 19:36:35',1,'2017-09-06 19:37:07',1504697794),(3,'微信支付','weixinpay',0,'微信','',0,'',0,'markdown',1,'closed',0,'/uploads/201709/cover_14e1c2c2fd5582d8_small.jpg','default','2017-09-06 19:37:24',1,'2017-09-06 19:38:15',1504697843),(4,'银联支付','unionpay',0,'银联支付','',0,'',0,'markdown',1,'closed',0,'/uploads/201709/cover_14e1c2c9d469a449_small.jpg','default','2017-09-06 19:37:53',1,'2017-09-06 19:38:44',1504697872);
-
+INSERT INTO `md_books` (
+    `book_id`, `book_name`, `identify`, `order_index`, `description`,
+    `label`, `privately_owned`, `private_token`, `status`, `editor`,
+    `doc_count`, `comment_status`, `comment_count`, `cover`, `theme`,
+    `create_time`, `roleName`, `createName`, `member_id`, `modify_time`, `version`
+) VALUES
+      (
+          2, '支付宝', 'alipay', 0, '支付宝', '', 0, NULL, 0, 'markdown',
+          1, 'closed', 0, '/uploads/201709/cover_14e1c2b307e5e567_small.jpg', 'default',
+          '2017-09-06 19:36:35', '管理员', 'admin', 1, '2017-09-06 19:37:07', 1504697794
+      ),
+      (
+          3, '微信支付', 'weixinpay', 0, '微信', '', 0, NULL, 0, 'markdown',
+          1, 'closed', 0, '/uploads/201709/cover_14e1c2c2fd5582d8_small.jpg', 'default',
+          '2017-09-06 19:37:24', '管理员', 'admin', 1, '2017-09-06 19:38:15', 1504697843
+      ),
+      (
+          4, '银联支付', 'unionpay', 0, '银联支付', '', 0, NULL, 0, 'markdown',
+          1, 'closed', 0, '/uploads/201709/cover_14e1c2c9d469a449_small.jpg', 'default',
+          '2017-09-06 19:37:53', '管理员', 'admin', 1, '2017-09-06 19:38:44', 1504697872
+      );
 /*Table structure for table `md_document_history` */
 
 CREATE TABLE `md_document_history` (

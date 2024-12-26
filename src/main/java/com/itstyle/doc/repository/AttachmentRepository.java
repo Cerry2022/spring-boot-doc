@@ -12,4 +12,6 @@ public interface AttachmentRepository extends JpaRepository<Attachment, Integer>
 	
 	@Query(value ="SELECT COUNT(attachment_id) FROM  md_attachment",nativeQuery = true)
 	long count();
+
+	Attachment findById(Long attachId);
 }

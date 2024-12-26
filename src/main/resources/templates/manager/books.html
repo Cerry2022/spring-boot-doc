@@ -16,9 +16,9 @@
         <div class="row">
             <div class="page-left">
                 <ul class="menu">
-                   <li><a href="" class="item"><i class="fa fa-dashboard" aria-hidden="true"></i> 仪表盘</a> </li>
+                   <li><a href="/manager" class="item"><i class="fa fa-dashboard" aria-hidden="true"></i> 仪表盘</a> </li>
                     <li><a href="/manager/users" class="item"><i class="fa fa-users" aria-hidden="true"></i> 用户管理</a> </li>
-                    <li class="active"><a href="/managerbooks" class="item"><i class="fa fa-book" aria-hidden="true"></i> 项目管理</a> </li>
+                    <li class="active"><a href="/manager/books" class="item"><i class="fa fa-book" aria-hidden="true"></i> 项目管理</a> </li>
                     <li><a href="/manager/setting" class="item"><i class="fa fa-cogs" aria-hidden="true"></i> 配置管理</a> </li>
                     <li><a href="/manager/attach/list" class="item"><i class="fa fa-cloud-upload" aria-hidden="true"></i> 附件管理</a> </li>
                 </ul>
@@ -101,7 +101,7 @@
 <script th:inline="javascript">
 //JS中获取对象
 /*<![CDATA[*/
-var bookList = /*[[${bookList}]]*/;
+var bookList = [[${bookList}]];
 /*]]>*/
 $(function () {
     window.app = new Vue({

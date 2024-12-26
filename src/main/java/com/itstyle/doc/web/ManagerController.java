@@ -97,6 +97,7 @@ public class ManagerController {
 		 logger.info("项目管理");
 		 map.addAttribute("SITE_NAME", Constans.mapOptions.get(Option.SITE_NAME.getCode()));
 		 List<Books> bookList =  booksRepository.findAll();
+		 System.out.println(bookList);
 		 map.addAttribute("bookList",bookList);
 		 return "manager/books";
     }
